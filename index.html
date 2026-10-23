@@ -1887,7 +1887,7 @@ if(!ok){const x=$('[aria-invalid=true]',f);x&&x.focus()}return ok?d:null}
 ['name','email','message'].forEach(k=>f.elements[k].addEventListener('input',()=>setErr(k,'')));
 f.addEventListener('submit',async e=>{e.preventDefault();st.className='';st.textContent='';const d=val();if(!d)return;
 fb.disabled=true;fb.textContent='Sending…';
-try{const r=await fetch('/api/contact',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(d)});const j=await r.json().catch(()=>({}));
+try{const r=await fetch('https://portfolio-alg4.onrender.com/api/contact',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(d)});const j=await r.json().catch(()=>({}));
 if(r.ok){st.className='ok';st.textContent='Thank you! Your message was sent.';f.reset()}
 else{if(j.errors)Object.entries(j.errors).forEach(([k,m])=>f.elements[k]&&setErr(k,m));st.className='bad';st.textContent=j.error||'Could not send. Please check the form.'}}
 catch(_){st.className='bad';st.innerHTML='Server unreachable. <a href="mailto:ikram.ghodbane@univ-annaba.dz?subject='+encodeURIComponent(d.subject||'Portfolio contact')+'&body='+encodeURIComponent(d.message+'\n\n'+d.name+' ('+d.email+')')+'">Send by email instead</a>.'}
