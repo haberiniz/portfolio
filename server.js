@@ -52,18 +52,31 @@ app.post("/api/contact", limiter, async (req, res) => {
       return res.status(500).json({ ok: false, message: "Email service is not configured yet." });
     }
 
-    const transporter = nodemailer.createTransport({
-      service: "gmail",
-      auth: { user: process.env.EMAIL_USER, pass: process.env.EMAIL_APP_PASSWORD }
+
+    const resendResponse = await fetch("https://api.resend.com/emails", {
+      method: "POST",
+      headers: {
+        "Authorization": `Bearer ${process.env.RESEND_API_KEY}`,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        from: "Portfolio Contact Form <onboarding@resend.dev>",
+        to: [process.env.TO_EMAIL],
+        reply_to: e,
+        subject: `Portfolio contact: ${s || "New message"}`,
+        text: `New portfolio message\n\nName: ${n}\nEmail: ${e}\nSubject: ${s || "(not provided)"}\n\nMessage:\n${m}`
+      })
     });
 
-    await transporter.sendMail({
-      from: `"Portfolio Contact Form" <${process.env.EMAIL_USER}>`,
-      to: process.env.TO_EMAIL,
-      replyTo: { name: n, address: e },
-      subject: `Portfolio contact: ${s || "New message"}`,
-      text: `New portfolio message\\n\\nName: ${n}\\nEmail: ${e}\\nSubject: ${s || "(not provided)"}\\n\\nMessage:\\n${m}`
-    });
+    const resendResult = await resendResponse.json().catch(() => ({}));
+
+    if (!resendResponse.ok) {
+      console.error("Resend API error:", resendResult);
+      throw new Error(
+        resendResult.message || `Resend API failed with status ${resendResponse.status}`
+      );
+    }
+
 
     return res.json({ ok: true, message: "Message sent successfully." });
   } catch (err) {
