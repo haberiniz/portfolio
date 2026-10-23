@@ -47,10 +47,13 @@ app.post("/api/contact", limiter, async (req, res) => {
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e))
       return res.status(400).json({ ok: false, message: "Please enter a valid email address." });
 
-    if (!process.env.EMAIL_USER || !process.env.EMAIL_APP_PASSWORD || !process.env.TO_EMAIL) {
-      console.error("Missing email environment variables.");
-      return res.status(500).json({ ok: false, message: "Email service is not configured yet." });
-    }
+ if (!process.env.RESEND_API_KEY || !process.env.TO_EMAIL) {
+  console.error("Missing Resend environment variables.");
+  return res.status(500).json({
+    ok: false,
+    message: "Email service is not configured yet."
+  });
+}
 
 
     const resendResponse = await fetch("https://api.resend.com/emails", {
