@@ -162,9 +162,40 @@ nav a:active {
 }
 
 
-.logo{position:fixed;top:calc(env(safe-area-inset-top,0px) + 14px);left:5vw;z-index:20;font-size:13px;font-weight:600;display:flex;align-items:center;gap:10px;text-decoration:none}
-.logo b{width:34px;height:34px;border-radius:50%;border:1px solid var(--line);display:grid;place-items:center;font-size:12px}
-.logo span{display:none}
+.logo {
+  position: fixed;
+  top: calc(env(safe-area-inset-top, 0px) + 14px);
+  left: 5vw;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+
+.logo b {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: grid;
+  place-items: center;
+  font-size: 12px;
+  flex-shrink: 0;
+}
+
+.logo-name {
+  position: absolute;
+  top: calc(env(safe-area-inset-top, 0px) + 14px);
+  left: calc(5vw + 44px);
+  z-index: 20;
+  font-size: 13px;
+  font-weight: 600;
+}
+
 @media(min-width:900px){.logo span{display:inline}}
 #hero{min-height:100svh;position:relative;display:flex;flex-direction:column;justify-content:flex-end;padding-bottom:70px;max-width:none}
 .ghost{position:absolute;left:2vw;top:12vh;font-size:clamp(120px,27vw,420px);font-weight:800;letter-spacing:-.06em;color:var(--ink);opacity:.06;line-height:.9;pointer-events:none;white-space:nowrap}
@@ -1484,7 +1515,9 @@ footer{text-align:center;color:var(--mut);font-size:12px;padding:20px 0 50px}
 }
 
 </style></head><body>
-<a class="logo" href="#hero"><b>IG</b><span>Ikram Ghodbane</span></a>
+
+<a class="logo" href="#hero"><b>IG</b></a>
+<span class="logo-name">Ikram Ghodbane</span>
 <nav aria-label="Sections"><a href="#about">About</a><a href="#skills">Skills</a><a href="#work">Work</a><a href="#experience">Experience</a><a href="#contact">Contact</a></nav>
 
 <section id="hero"><div class="ghost" aria-hidden="true">IKRAM</div>
