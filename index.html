@@ -5,9 +5,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
 <style>
-:root{--bg1:#f7f4d8;--bg2:#ece9c6;--ink:#1f2342;--mut:#5d6075;--card:rgba(255,255,255,.62);--line:rgba(31,35,66,.14);--t1:#1f2342;--t2:#8b7b72;--t3:#b8aca3;--sf:'Inter',system-ui,sans-serif;--se:'Instrument Serif',Georgia,serif;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg1:#16182c;--bg2:#101222;--ink:#f1eed8;--mut:#a9abc0;--card:rgba(255,255,255,.06);--line:rgba(241,238,216,.16);--t1:#6f77c9;--t2:#8b7b72;--t3:#5a5262}}
-:root[data-theme="dark"]{--bg1:#16182c;--bg2:#101222;--ink:#f1eed8;--mut:#a9abc0;--card:rgba(255,255,255,.06);--line:rgba(241,238,216,.16);--t1:#6f77c9;--t2:#8b7b72;--t3:#5a5262}
+:root{color-scheme:dark;--bg1:#16182c;--bg2:#101222;--ink:#f1eed8;--mut:#a9abc0;--card:rgba(255,255,255,.06);--line:rgba(241,238,216,.16);--t1:#6f77c9;--t2:#8b7b72;--t3:#5a5262;--sf:'Inter',system-ui,sans-serif;--se:'Instrument Serif',Georgia,serif;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 *,*::before,*::after{box-sizing:inherit}
 html{scroll-behavior:smooth;scroll-padding-top:calc(env(safe-area-inset-top,0px) + 70px)}
 body{margin:0;font-family:var(--sf);color:var(--ink);background:linear-gradient(160deg,var(--bg1),var(--bg2)) fixed;background-color:var(--bg2);line-height:1.6;overflow-x:hidden}
@@ -757,12 +755,10 @@ footer{text-align:center;color:var(--mut);font-size:12px;padding:20px 0 50px}
 #cform label{font-size:12.5px;font-weight:600;color:var(--mut)}
 #cform input,#cform textarea{font:400 15px var(--sf);color:var(--ink);background:rgba(255,255,255,.5);border:1px solid var(--line);border-radius:14px;padding:13px 15px;min-height:46px;width:100%;transition:border-color .2s,box-shadow .2s}
 :root[data-theme="dark"] #cform input,:root[data-theme="dark"] #cform textarea{background:rgba(255,255,255,.05)}
-@media(prefers-color-scheme:dark){:root:not([data-theme="light"]) #cform input,:root:not([data-theme="light"]) #cform textarea{background:rgba(255,255,255,.05)}}
 #cform textarea{min-height:140px;resize:vertical}
 #cform input:focus,#cform textarea:focus{outline:none;border-color:var(--ink);box-shadow:0 0 0 3px rgba(111,119,201,.28)}
 #cform .er{font-size:12px;color:#b3261e;min-height:16px}
 :root[data-theme="dark"] #cform .er{color:#ff9a92}
-@media(prefers-color-scheme:dark){:root:not([data-theme="light"]) #cform .er{color:#ff9a92}}
 #cform [aria-invalid=true]{border-color:#b3261e}
 #cform .hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
 #cform .sub{grid-column:1/-1;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
@@ -1518,6 +1514,7 @@ footer{text-align:center;color:var(--mut);font-size:12px;padding:20px 0 50px}
 
 <a class="logo" href="#hero"><b>IG</b></a>
 <span class="logo-name">Ikram Ghodbane</span>
+
 <nav aria-label="Sections"><a href="#about">About</a><a href="#skills">Skills</a><a href="#work">Work</a><a href="#experience">Experience</a><a href="#contact">Contact</a></nav>
 
 <section id="hero"><div class="ghost" aria-hidden="true">IKRAM</div>
@@ -1541,7 +1538,7 @@ footer{text-align:center;color:var(--mut);font-size:12px;padding:20px 0 50px}
 
 
 <div class="hrow"><div><div class="lab">Ikram Ghodbane · Annaba, Algeria</div><h1>AI &amp; Software Developer.</h1><p class="se" style="font-size:22px">Building intelligent apps for the fields that feed us.</p></div>
-<a class="btn p" href="./assets/CV.pdf?v=2" target="_blank" rel="noopener noreferrer"> Résumé CV ⭣
+<div class="btns">  <a class="btn p" href="./assets/CV.pdf" target="_blank" rel="noopener noreferrer"> Résumé CV ⭣
 </a><a class="btn" href="https://github.com/haberiniz" target="_blank" rel="noopener">GitHub ⬈</a><a class="btn" href="https://www.linkedin.com/in/ikram-ghodbane-935010322?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank" rel="noopener">Linkdin ⬈</a></div></div></section>
 
 
@@ -1920,7 +1917,7 @@ if(!ok){const x=$('[aria-invalid=true]',f);x&&x.focus()}return ok?d:null}
 ['name','email','message'].forEach(k=>f.elements[k].addEventListener('input',()=>setErr(k,'')));
 f.addEventListener('submit',async e=>{e.preventDefault();st.className='';st.textContent='';const d=val();if(!d)return;
 fb.disabled=true;fb.textContent='Sending…';
-try{const r=await fetch('https://portfolio-alg4.onrender.com/api/contact',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(d)});const j=await r.json().catch(()=>({}));
+try{const r=await fetch('/api/contact',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(d)});const j=await r.json().catch(()=>({}));
 if(r.ok){st.className='ok';st.textContent='Thank you! Your message was sent.';f.reset()}
 else{if(j.errors)Object.entries(j.errors).forEach(([k,m])=>f.elements[k]&&setErr(k,m));st.className='bad';st.textContent=j.error||'Could not send. Please check the form.'}}
 catch(_){st.className='bad';st.innerHTML='Server unreachable. <a href="mailto:ikram.ghodbane@univ-annaba.dz?subject='+encodeURIComponent(d.subject||'Portfolio contact')+'&body='+encodeURIComponent(d.message+'\n\n'+d.name+' ('+d.email+')')+'">Send by email instead</a>.'}
@@ -2004,6 +2001,10 @@ document.querySelectorAll('[data-slideshow]').forEach((gallery) => {
   show(0);
   startTimer();
 });
+
+</script>
+
+</body></html>
 
 </script>
 
